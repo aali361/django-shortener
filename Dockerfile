@@ -16,5 +16,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR /app/phosphor
-CMD gunicorn --reload --workers=8 --bind=0.0.0.0:80 --chdir /app/phosphor phosphor.wsgi
+WORKDIR /app/shortener
+CMD gunicorn --reload --workers=8 --bind=0.0.0.0:80 --chdir /app/shortener shortener.wsgi
