@@ -1,3 +1,5 @@
+import hashlib
+
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -15,4 +17,10 @@ class ShortenAPIView(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
-        return Response({})
+        short_url = hashlib.md5('{}{}'.format(request.user.id, data['url']).encode('utf-8')).hexdigest()[:10]
+        if 'sug_url' in data:
+            short_url = '{}{}'.format(data['sug_url'], short_url)[:10]
+        obj, created = app_models.URL.objects.get_or_create(owner=request.user, url=data['url'], short=short_url)
+        if not created:
+            raise NotAcceptable(detail='please change or set sug_url')
+        return Response(app_serializers.URLSerializer(obj).data)
