@@ -12,6 +12,7 @@ django==3.1.2             # via -r requirements.in, django-filter, django-redis,
 djangorestframework==3.12.1  # via -r requirements.in
 gunicorn==20.0.4          # via -r requirements.in
 pip-tools==5.3.1          # via -r requirements.in
+psycopg2-binary==2.8.6    # via -r requirements.in
 pytz==2020.1              # via django
 redis==3.5.3              # via -r requirements.in, django-redis
 six==1.15.0               # via pip-tools
