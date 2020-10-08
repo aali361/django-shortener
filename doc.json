@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "c29e9d2f-6eeb-48c5-b706-babccd4a7e5d",
+		"name": "yektane",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "ghorbani-m@aut.ac.ir",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "ghorbaniiiiiiiiiii",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "sal13883",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:9030/v1/user/sign-up/",
+					"host": [
+						"localhost"
+					],
+					"port": "9030",
+					"path": [
+						"v1",
+						"user",
+						"sign-up",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "ghorbani-m@aut.ac.ir",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "ghorbaniiii",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "sal13883",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:9030/v1/user/sign-in/",
+					"host": [
+						"localhost"
+					],
+					"port": "9030",
+					"path": [
+						"v1",
+						"user",
+						"sign-in",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
