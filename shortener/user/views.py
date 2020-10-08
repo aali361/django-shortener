@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import PermissionDenied, NotAcceptable
+from rest_framework.authtoken.models import Token
 
 from . import serializers as usr_serializers
 from . import models as usr_models
@@ -34,6 +35,7 @@ class SignInAPIView(APIView):
             user = EmailBackend.authenticate(self, request, email=data['email'], password=data['password'])
         
         if user is not None:
-            return Response(self.serializer_class(user).data)
+            token, _ = Token.objects.get_or_create(user=user)
+            return Response({"user": self.serializer_class(user).data, "token": token.key})
         else:
             raise PermissionDenied(detail='wrong authentication information')

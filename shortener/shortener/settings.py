@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework.authtoken',
+
     'user',
+    'app'
 ]
 
 MIDDLEWARE = [
@@ -126,3 +129,10 @@ STATIC_URL = '/static/'
 
 
 AUTH_USER_MODEL = "user.Profile"
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
