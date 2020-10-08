@@ -1,12 +1,10 @@
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from django.contrib.auth.hashers import make_password
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.exceptions import PermissionDenied
+from rest_framework.exceptions import PermissionDenied, NotAcceptable
 
-from shortener.auth import EmainAuthetication
 from . import serializers as usr_serializers
+from . import models as usr_models
 
 
 class SignUpAPIView(APIView):
@@ -15,7 +13,11 @@ class SignUpAPIView(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
-        user = User.objects.create_user(data['username'], data['email'], data['password'])
+        if usr_models.Profile.objects.filter(email=data['email']).first() is not None:
+            raise NotAcceptable(detail='email is duplicate')
+        if usr_models.Profile.objects.filter(username=data['username']).first() is not None:
+            raise NotAcceptable(detail='username is duplicate')
+        user = usr_models.Profile.objects.create_user(data['username'], data['email'], data['password'])
         return Response(self.serializer_class(user).data)
 
 
@@ -28,10 +30,8 @@ class SignInAPIView(APIView):
         if 'username' in data:
             user = authenticate(username=data['username'], password=data['password'])
         elif 'email' in data:
-            user = EmainAuthetication.authenticate(self, request, username=data['email'], password=data['password'])
-        
-        print(user.password)
-        print(make_password(data['password']))
+            from .auth import EmailBackend
+            user = EmailBackend.authenticate(self, request, email=data['email'], password=data['password'])
         
         if user is not None:
             return Response(self.serializer_class(user).data)
