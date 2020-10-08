@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  shortener_db:
+    container_name: shortener_db
+    image: mdillon/postgis:11
+    restart: unless-stopped
+    volumes:
+      - shortener_db:/var/lib/postgresql/data
+
+  shortener_api:
+    container_name: shortener_api
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - shortener_db
+    volumes:
+      - .:/app
+    ports:
+      - 9163:80
+    command: python /app/shortener/manage.py runserver 0:80
+    environment:
+      DEBUG: 'True'
+
+  shortener_redis:
+    container_name : shortener_redis
+    image: redis:5.0.2
+    restart: unless-stopped
+
+volumes:
+  shortener_db:

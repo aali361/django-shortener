@@ -1,0 +1,7 @@
+django
+django-filter
+django-redis
+djangorestframework
+gunicorn
+pip-tools
+redis
