@@ -1,8 +1,6 @@
 #!/bin/bash
 
-PROJECT_NAME='ayneh'
-SERVER_NAME='tika9'
-SERVER_PATH='/var/www/ayneh/'
+PROJECT_NAME='shortener'
 
 API_CONTAINER_NAME=${PROJECT_NAME}'_api'
 DB_CONTAINER_NAME=${PROJECT_NAME}'_db'

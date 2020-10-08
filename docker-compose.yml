@@ -17,7 +17,7 @@ services:
     volumes:
       - .:/app
     ports:
-      - 9163:80
+      - 9030:80
     command: python /app/shortener/manage.py runserver 0:80
     environment:
       DEBUG: 'True'
