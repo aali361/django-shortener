@@ -8,7 +8,8 @@ asgiref==3.2.10           # via django
 click==7.1.2              # via pip-tools
 django-filter==2.4.0      # via -r requirements.in
 django-redis==4.12.1      # via -r requirements.in
-django==3.1.2             # via -r requirements.in, django-filter, django-redis, djangorestframework
+django-user-agents==0.4.0  # via -r requirements.in
+django==3.1.2             # via -r requirements.in, django-filter, django-redis, django-user-agents, djangorestframework
 djangorestframework==3.12.1  # via -r requirements.in
 gunicorn==20.0.4          # via -r requirements.in
 pip-tools==5.3.1          # via -r requirements.in
@@ -17,6 +18,8 @@ pytz==2020.1              # via django
 redis==3.5.3              # via -r requirements.in, django-redis
 six==1.15.0               # via pip-tools
 sqlparse==0.4.1           # via django
+ua-parser==0.10.0         # via user-agents
+user-agents==2.2.0        # via django-user-agents
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip
