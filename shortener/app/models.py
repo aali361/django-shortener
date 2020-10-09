@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import JSONField
 
 from user import models as usr_models
 
@@ -39,6 +40,10 @@ class Report(BaseModel):
     DAY = 'day'
     WEEK = 'week'
     MONTH = 'month'
-    device_types = ((DAY, 'روز'), (WEEK, 'هفته'), (MONTH, 'ماه'))
+    time_types = ((DAY, 'روز'), (WEEK, 'هفته'), (MONTH, 'ماه'))
+    type = models.CharField(max_length=10, choices=time_types, default='NA')
 
-    file = models.URLField(blank=True)
+    view = models.IntegerField(default=0)
+    device = models.JSONField(null=True)
+    browser = models.JSONField(null=True)
+    user_repetitive = models.BooleanField(null=True)
