@@ -1,10 +1,10 @@
 from django.db import models
-from django.contrib.postgres.fields import JSONField
+from django.utils import timezone
 
 from user import models as usr_models
 
 class BaseModel(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
     class Meta:
         abstract = True
@@ -31,7 +31,7 @@ class Access(BaseModel):
     browser = models.CharField(max_length=50, default='NA')
 
     def __str__(self):
-        return self.url
+        return str(self.url)
 
 
 class Report(BaseModel):
