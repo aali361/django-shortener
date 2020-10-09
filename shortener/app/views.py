@@ -29,4 +29,10 @@ class URLAPIView(APIView):
     permission_classes = (IsAuthenticated,)
     def get(self, request, short):
         url = get_object_or_404(app_models.URL, short=short)
+        device = 'NA'
+        if request.user_agent.is_mobile:
+            device = app_models.Report.MOBILE
+        elif request.user_agent.is_pc:
+            device = app_models.Report.DESKTOP
+        app_models.Report.objects.create(url=url, viewer=request.user, device=device, browser=request.user_agent.browser.family)
         return redirect(url.url)

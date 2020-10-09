@@ -18,3 +18,17 @@ class URL(BaseModel):
     def __str__(self):
         return self.url
 
+class Report(BaseModel):
+    url = models.ForeignKey(URL, on_delete=models.CASCADE, related_name='reports', related_query_name='report')
+    viewer = models.ForeignKey(usr_models.Profile, on_delete=models.CASCADE, related_name='reports', related_query_name='report')
+
+    MOBILE = 'mobile'
+    DESKTOP = 'desktop'
+    device_types = ((MOBILE, 'موبایل'), (DESKTOP, 'دسکتاپ'),)
+    device = models.CharField(max_length=10, choices=device_types, default='NA')
+
+    browser = models.CharField(max_length=50, default='NA')
+
+    def __str__(self):
+        return self.url
+
