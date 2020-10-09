@@ -8,3 +8,4 @@ redis
 psycopg2-binary
 django-user-agents
 celery<4.5
+ipython
