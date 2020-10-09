@@ -1,13 +1,20 @@
 import hashlib
+from django.http import request
 
 from django.shortcuts import get_object_or_404, redirect
 from rest_framework.views import APIView
+from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.exceptions import PermissionDenied, NotAcceptable
 
 from . import serializers as app_serializers
 from . import models as app_models
+
+
+class ReportPagination(PageNumberPagination):
+    page_size = 10
 
 
 class ShortenAPIView(APIView):
@@ -36,3 +43,19 @@ class URLAPIView(APIView):
             device = app_models.Access.DESKTOP
         app_models.Access.objects.create(url=url, viewer=request.user, device=device, browser=request.user_agent.browser.family)
         return redirect(url.url)
+
+
+class ReportViewSet(ReadOnlyModelViewSet):
+    permission_classes = (IsAuthenticated,)
+    pagination_class = ReportPagination
+
+    serializers = {
+        'list': app_serializers.ReportListSerializer,
+        'retrieve': app_serializers.ReportRetrieveSerializer,
+    }
+
+    def get_serializer_class(self):
+        return self.serializers.get(self.action)
+
+    def get_queryset(self):
+        return app_models.Report.objects.filter(url__owner=self.request.user).order_by('id')

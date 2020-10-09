@@ -46,4 +46,4 @@ class Report(BaseModel):
     view = models.IntegerField(default=0)
     device = models.JSONField(null=True)
     browser = models.JSONField(null=True)
-    user_repetitive = models.BooleanField(null=True)
+    user_repetitive = models.BooleanField(default=False)
