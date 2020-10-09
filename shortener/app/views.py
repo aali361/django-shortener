@@ -22,8 +22,6 @@ class ShortenAPIView(APIView):
             short_url = '{}{}'.format(data['sug_url'], short_url)[:10]
         url, created = app_models.URL.objects.get_or_create(owner=request.user, url=data['url'], 
                             short='{}'.format(short_url))
-        if not created:
-            raise NotAcceptable(detail='please change or set sug_url')
         return Response(app_serializers.URLSerializer(url).data)
 
 
