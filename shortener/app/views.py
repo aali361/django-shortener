@@ -1,5 +1,6 @@
 import hashlib
 from django.utils import timezone
+from django.core.cache import cache
 from django.shortcuts import get_object_or_404, redirect
 from rest_framework.views import APIView
 from rest_framework.viewsets import ReadOnlyModelViewSet
@@ -35,14 +36,14 @@ class ShortenAPIView(APIView):
 class URLAPIView(APIView):
     permission_classes = (IsAuthenticated,)
     def get(self, request, short):
-        url = get_object_or_404(app_models.URL, short=short)
-        device = 'NA'
-        if request.user_agent.is_mobile:
-            device = app_models.Access.MOBILE
-        elif request.user_agent.is_pc:
-            device = app_models.Access.DESKTOP
-        app_models.Access.objects.create(url=url, viewer=request.user, device=device, browser=request.user_agent.browser.family)
-        return redirect(url.url)
+        red_url = cache.get(short)
+        app_tasks.register_access.delay(short, request.user.id, request.user_agent.is_mobile,
+                                        request.user_agent.is_pc, request.user_agent.browser.family)
+        if red_url is None:
+            url = get_object_or_404(app_models.URL, short=short)
+            red_url = url.url
+            cache.set(short, red_url, 10*60)
+        return redirect(red_url)
 
 
 class TodayReportAPIView(APIView):

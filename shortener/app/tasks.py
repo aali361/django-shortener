@@ -1,6 +1,7 @@
 import datetime
 from django.db.models import Count
-from celery.decorators import periodic_task
+from django.shortcuts import get_object_or_404
+from celery.decorators import periodic_task, task
 from celery.task.schedules import crontab
 
 from . import models as app_models
@@ -59,3 +60,14 @@ def daily_report():
         view, device, browser = get_statics(url, app_models.Report.MONTH, True)
         R6 = app_models.Report(url=url, type=app_models.Report.MONTH, view=view, device=device, browser=browser, user_repetitive=True)
         app_models.Report.objects.bulk_create([R1,R2,R3,R4,R5,R6])
+
+@task(name="register_access")
+def register_access(short, user_id, is_mobile, is_pc, browser_family):
+    url = get_object_or_404(app_models.URL, short=short)
+    device = 'NA'
+    if is_mobile:
+        device = app_models.Access.MOBILE
+    elif is_pc:
+        device = app_models.Access.DESKTOP
+    app_models.Access.objects.create(url=url, viewer_id=user_id, device=device, browser=browser_family)
+
