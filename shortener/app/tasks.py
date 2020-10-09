@@ -25,12 +25,14 @@ def get_related_records(url, time_type):
 def to_json(queryset):
     result = {}
     for item in queryset:
-        for key in item:
-            result[key] = item[key]
+        result[list(item.values())[0]] = list(item.values())[1]
     return result
 
-def get_statics(url, time_type, distinct=False):
-    records = get_related_records(url, time_type)
+def get_statics(url=None, time_type=None, distinct=False, data=None):
+    if data is None:
+        records = get_related_records(url, time_type)
+    else:
+        records = data
     if distinct:
         records = records.values('url', 'viewer').distinct()
     view = records.count()

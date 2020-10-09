@@ -1,6 +1,5 @@
 import hashlib
-from django.http import request
-
+from django.utils import timezone
 from django.shortcuts import get_object_or_404, redirect
 from rest_framework.views import APIView
 from rest_framework.viewsets import ReadOnlyModelViewSet
@@ -9,8 +8,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.exceptions import PermissionDenied, NotAcceptable
 
-from . import serializers as app_serializers
 from . import models as app_models
+from . import serializers as app_serializers
+from . import tasks as app_tasks
 
 
 class ReportPagination(PageNumberPagination):
@@ -43,6 +43,15 @@ class URLAPIView(APIView):
             device = app_models.Access.DESKTOP
         app_models.Access.objects.create(url=url, viewer=request.user, device=device, browser=request.user_agent.browser.family)
         return redirect(url.url)
+
+
+class TodayReportAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+    def get(self, request, url_id):
+        url = get_object_or_404(app_models.URL, id=url_id, owner=request.user)
+        accesses = app_models.Access.objects.filter(url=url, created_at__date=timezone.now().date())
+        statics = app_tasks.get_statics(data=accesses)
+        return Response(statics)
 
 
 class ReportViewSet(ReadOnlyModelViewSet):
