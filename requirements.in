@@ -7,3 +7,4 @@ pip-tools
 redis
 psycopg2-binary
 django-user-agents
+celery

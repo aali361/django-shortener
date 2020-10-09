@@ -22,6 +22,30 @@ services:
     environment:
       DEBUG: 'True'
 
+  shortener_celery:
+    container_name: shortener_celery
+    build: .
+    working_dir: /app/shortener
+    command: ["celery", "-A", "shortener", "worker", "-l", "INFO"]
+    restart: unless-stopped
+    volumes:
+      - .:/app
+    depends_on:
+      - shortener_db
+      - shortener_redis
+
+  shortener_beat:
+    container_name: shortener_beat
+    build: .
+    working_dir: /app/shortener
+    command: ["celery", "-A", "shortener", "beat", "-l", "INFO"]
+    restart: unless-stopped
+    volumes:
+      - .:/app
+    depends_on:
+      - shortener_db
+      - shortener_redis
+
   shortener_redis:
     container_name : shortener_redis
     image: redis:5.0.2
