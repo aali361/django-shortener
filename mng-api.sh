@@ -8,26 +8,23 @@ CELERY_CONTAINER_NAME=${PROJECT_NAME}'_celery'
 CELERY_BEAT_CONTAINER_NAME=${PROJECT_NAME}'_beat'
 REDIS_CONTAINER_NAME=${PROJECT_NAME}'_redis'
 
-COMPOSE_FILE='docker-compose-pro.yml'
-NGINX_FILE='ayneh_api_nginx.conf'
-
 
 function log() {
     docker-compose -f ${COMPOSE_FILE} logs -f
 }
 
 function make_migrations() {
-    docker exec -it ${API_CONTAINER_NAME} ./${PROJECT_NAME}/manage.py makemigrations
+    docker exec -it ${API_CONTAINER_NAME} ./manage.py makemigrations
 }
 
 function showmigrations() {
     echo -e "\n ... showmigrations ... \n"
-    docker exec -it ${API_CONTAINER_NAME} ./${PROJECT_NAME}/manage.py showmigrations $1
+    docker exec -it ${API_CONTAINER_NAME} ./manage.py showmigrations $1
 }
 
 function migrate() {
     echo -e "\n ... migrate db ... \n"
-    docker exec -t $1 ./${PROJECT_NAME}/manage.py migrate $2 $3
+    docker exec -t $1 ./manage.py migrate $2 $3
 }
 
 function bash() {
@@ -35,7 +32,7 @@ function bash() {
 }
 
 function shell() {
-    docker exec -it ${API_CONTAINER_NAME} ./${PROJECT_NAME}/manage.py shell
+    docker exec -it ${API_CONTAINER_NAME} ./manage.py shell
 }
 
 function drop_db() {
@@ -49,11 +46,11 @@ function populate_db() {
 
 function collectstatic() {
     echo -e "\n ... collect static files ... \n"
-    docker exec -i $1 ./${PROJECT_NAME}/manage.py collectstatic --noinput
+    docker exec -i $1 ./manage.py collectstatic --noinput
 }
 
 function create_admin_user() {
-    docker exec -it ${API_CONTAINER_NAME} ./${PROJECT_NAME}/manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('${1:-admin}', '', '${2:-test1234}')"
+    docker exec -it ${API_CONTAINER_NAME} ./manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('${1:-admin}', '', '${2:-test1234}')"
 }
 
 function issue_https_certificate() {
