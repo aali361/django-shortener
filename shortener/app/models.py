@@ -18,9 +18,9 @@ class URL(BaseModel):
     def __str__(self):
         return self.url
 
-class Report(BaseModel):
-    url = models.ForeignKey(URL, on_delete=models.CASCADE, related_name='reports', related_query_name='report')
-    viewer = models.ForeignKey(usr_models.Profile, on_delete=models.CASCADE, related_name='reports', related_query_name='report')
+class Access(BaseModel):
+    url = models.ForeignKey(URL, on_delete=models.CASCADE, related_name='accesses', related_query_name='access')
+    viewer = models.ForeignKey(usr_models.Profile, on_delete=models.CASCADE, related_name='accesses', related_query_name='access')
 
     MOBILE = 'mobile'
     DESKTOP = 'desktop'
@@ -32,3 +32,13 @@ class Report(BaseModel):
     def __str__(self):
         return self.url
 
+
+class Report(BaseModel):
+    url = models.ForeignKey(URL, on_delete=models.CASCADE, related_name='reports', related_query_name='report')
+
+    DAY = 'day'
+    WEEK = 'week'
+    MONTH = 'month'
+    device_types = ((DAY, 'روز'), (WEEK, 'هفته'), (MONTH, 'ماه'))
+
+    file = models.URLField(blank=True)
