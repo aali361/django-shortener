@@ -4,7 +4,7 @@
 - This task is bout shortening links
 
 
-## setup
+### setup
 
 - First pull the project
 - Then docker-compose up
