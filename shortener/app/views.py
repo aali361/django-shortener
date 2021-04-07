@@ -7,7 +7,6 @@ from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.exceptions import PermissionDenied, NotAcceptable
 
 from . import models as app_models
 from . import serializers as app_serializers
@@ -28,7 +27,7 @@ class ShortenAPIView(APIView):
         short_url = hashlib.md5('{}{}'.format(request.user.id, data['url']).encode('utf-8')).hexdigest()[:10]
         if 'sug_url' in data:
             short_url = '{}{}'.format(data['sug_url'], short_url)[:10]
-        url, created = app_models.URL.objects.get_or_create(owner=request.user, url=data['url'], 
+        url, _ = app_models.URL.objects.get_or_create(owner=request.user, url=data['url'], 
                             short='{}'.format(short_url))
         return Response(app_serializers.URLSerializer(url).data)
 
