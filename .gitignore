@@ -1,5 +1,7 @@
-sftp.json
+
+.vscode
 *.pyc
 *.sqlite3
 celerybeat-schedule
 celerybeat.pid
+sftp.json
