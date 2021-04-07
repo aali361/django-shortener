@@ -42,7 +42,7 @@ class URLAPIView(APIView):
             url = get_object_or_404(app_models.URL, short=short)
             red_url = url.url
             cache.set(short, red_url, 10*60)
-        return redirect(red_url)
+        return Response({'url':red_url})
 
 
 class TodayReportAPIView(APIView):
