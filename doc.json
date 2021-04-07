@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "f164042f-fefb-4198-a07b-cd8caffc998e",
-		"name": "yektanet",
+		"_postman_id": "3f052f66-3368-4d9f-9e08-9ee73ebbfc47",
+		"name": "shortener",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -18,17 +18,17 @@
 							"formdata": [
 								{
 									"key": "email",
-									"value": "ghorbani-m3@aut.ac.ir",
+									"value": "ghorbani-m@aut.ac.ir",
 									"type": "text"
 								},
 								{
 									"key": "username",
-									"value": "ghorbani3",
+									"value": "test",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "sal13883",
+									"value": "test",
 									"type": "text"
 								}
 							]
@@ -58,17 +58,17 @@
 									"formdata": [
 										{
 											"key": "email",
-											"value": "ghorbani-m3@aut.ac.ir",
+											"value": "ghorbani-m@aut.ac.ir",
 											"type": "text"
 										},
 										{
 											"key": "username",
-											"value": "ghorbani3",
+											"value": "test",
 											"type": "text"
 										},
 										{
 											"key": "password",
-											"value": "sal13883",
+											"value": "test",
 											"type": "text"
 										}
 									]
@@ -93,11 +93,11 @@
 							"header": [
 								{
 									"key": "Date",
-									"value": "Thu, 08 Oct 2020 19:03:40 GMT"
+									"value": "Wed, 07 Apr 2021 02:34:23 GMT"
 								},
 								{
 									"key": "Server",
-									"value": "WSGIServer/0.2 CPython/3.6.12"
+									"value": "WSGIServer/0.2 CPython/3.6.13"
 								},
 								{
 									"key": "Content-Type",
@@ -105,7 +105,7 @@
 								},
 								{
 									"key": "Vary",
-									"value": "Accept, Cookie"
+									"value": "Accept"
 								},
 								{
 									"key": "Allow",
@@ -117,7 +117,7 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "56"
+									"value": "50"
 								},
 								{
 									"key": "X-Content-Type-Options",
@@ -129,7 +129,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"email\": \"ghorbani-m3@aut.ac.ir\",\n    \"username\": \"ghorbani3\"\n}"
+							"body": "{\n    \"email\": \"ghorbani-m@aut.ac.ir\",\n    \"username\": \"test\"\n}"
 						}
 					]
 				},
@@ -143,7 +143,7 @@
 							"formdata": [
 								{
 									"key": "email",
-									"value": "ghorbani-m3@aut.ac.ir",
+									"value": "ghorbani-m@aut.ac.ir",
 									"type": "text"
 								},
 								{
@@ -154,7 +154,7 @@
 								},
 								{
 									"key": "password",
-									"value": "sal13883",
+									"value": "test",
 									"type": "text"
 								}
 							]
@@ -184,18 +184,18 @@
 									"formdata": [
 										{
 											"key": "email",
-											"value": "ghorbani-m3@aut.ac.ir",
+											"value": "ghorbani-m@aut.ac.ir",
 											"type": "text",
 											"disabled": true
 										},
 										{
 											"key": "username",
-											"value": "ghorbani3",
+											"value": "ghorbani",
 											"type": "text"
 										},
 										{
 											"key": "password",
-											"value": "sal13883",
+											"value": "test",
 											"type": "text"
 										}
 									]
@@ -268,7 +268,7 @@
 									"formdata": [
 										{
 											"key": "email",
-											"value": "ghorbani-m3@aut.ac.ir",
+											"value": "ghorbani-m@aut.ac.ir",
 											"type": "text"
 										},
 										{
@@ -279,7 +279,7 @@
 										},
 										{
 											"key": "password",
-											"value": "sal13883",
+											"value": "test",
 											"type": "text"
 										}
 									]
@@ -304,11 +304,11 @@
 							"header": [
 								{
 									"key": "Date",
-									"value": "Thu, 08 Oct 2020 19:31:20 GMT"
+									"value": "Wed, 07 Apr 2021 02:36:17 GMT"
 								},
 								{
 									"key": "Server",
-									"value": "WSGIServer/0.2 CPython/3.6.12"
+									"value": "WSGIServer/0.2 CPython/3.6.13"
 								},
 								{
 									"key": "Content-Type",
@@ -316,7 +316,7 @@
 								},
 								{
 									"key": "Vary",
-									"value": "Accept, Cookie"
+									"value": "Accept"
 								},
 								{
 									"key": "Allow",
@@ -328,7 +328,7 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "56"
+									"value": "110"
 								},
 								{
 									"key": "X-Content-Type-Options",
@@ -340,12 +340,11 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"email\": \"ghorbani-m3@aut.ac.ir\",\n    \"username\": \"ghorbani3\"\n}"
+							"body": "{\n    \"user\": {\n        \"email\": \"ghorbani-m@aut.ac.ir\",\n        \"username\": \"test\"\n    },\n    \"token\": \"8b5d198dd50268ab6284e5c5d02cab6236aa75f7\"\n}"
 						}
 					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "shortener",
@@ -357,7 +356,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Token 0a32b74128331e10e8acaaf06a02798a6376445a",
+								"value": "Token 8b5d198dd50268ab6284e5c5d02cab6236aa75f7",
 								"type": "text"
 							}
 						],
@@ -484,7 +483,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Token b1934fbf297799833338172de86607e46d52d12e",
+								"value": "Token 8b5d198dd50268ab6284e5c5d02cab6236aa75f7",
 								"type": "text"
 							}
 						],
@@ -808,9 +807,7 @@
 						}
 					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
